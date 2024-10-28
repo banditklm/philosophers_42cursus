@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:53:43 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/10/27 10:51:39 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/10/28 09:57:55 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void 	nap(t_philo *philo)
 
 void	dinner(t_philo *philo)
 {
+	// printf("%d\n", philo->id);
 	sem_wait(philo->data->fork);//decrement sem_fork (take a fork)
 	ft_printf(philo, FORK, get_tv() - philo->data->t_begin);
 	if (philo->data->nbr_philo == 1)
@@ -99,6 +100,7 @@ void	proc_routine(t_philo *ph)
 	t_data	*data;
 	t_philo	*philo;
 
+	// printf("%d\n", ph->id);
 	philo = (t_philo *)ph;
 	data = philo->data;
 	if (philo->id % 2 == 0)
