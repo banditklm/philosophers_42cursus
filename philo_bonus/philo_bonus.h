@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:08:13 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/10/27 10:29:02 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:13:37 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ typedef struct	s_philo
 	size_t			t_sleep;
 	int				must_eat;
 	int				nbr_meals;
+	bool			dead;
 	size_t			t_last;
 	t_data			*data;
+	sem_t			*meal;
 }	t_philo;
 
 typedef struct	s_data
@@ -83,4 +85,8 @@ void	init_philo(t_data *data);
 void	proc_routine(t_philo *ph);
 void	ft_printf(t_philo *philo, t_type type, size_t t);
 bool	get_flag(t_data *data);
+char	*ft_itoa(int n);
+char	*ft_strjoin(char const *s1, char const *s2);
+void    parent_monitor(t_data *data);
+void	kill_all(t_data *data);
 #endif

@@ -4,7 +4,7 @@ CC = cc
 
 FLAGS = -Wall -Wextra -Werror
 
-SRCS = philo_bonus.c parser_bonus.c utils_bonus.c init_bonus.c time_bonus.c routine_bonus.c helper_bonus.c 
+SRCS = philo_bonus.c parser_bonus.c utils_bonus.c init_bonus.c time_bonus.c routine_bonus.c helper_bonus.c  utils_bonus1.c monitor_bonus.c
 
 HEADS = philo_bonus.h
 
@@ -29,4 +29,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : clean	
+.PHONY : clean

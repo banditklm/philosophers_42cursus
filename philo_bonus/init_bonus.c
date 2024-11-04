@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:06:58 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/10/28 10:07:10 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/04 10:19:55 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,42 +63,6 @@ void	init_sem(t_data *data)
 	}
 }
 
-void	simulation(t_data *data)
-{
-	int	pid;
-	int	i;
-	int status;
-
-	i = 0;
-	pid = 0;
-	while (i < data->nbr_philo)
-	{
-		pid = fork();
-		if (pid < 0)
-		{
-			perror("fork() Error");
-			exit(EXIT_FAILURE);
-		}
-		else if (pid == 0)
-		{
-			// printf("====>%d<=====\n", data->philos[i].id);
-			proc_routine(&data->philos[i]);
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			data->philos[i].pid = pid;
-		}
-		i++;
-	}
-	i = 0;
-	while (i < data->nbr_philo)
-	{
-		waitpid(data->philos[i].pid, &status, 0);
-		i++;
-	}
-}
-
 void	kill_all(t_data *data)
 {
 	int		i;
@@ -111,9 +75,34 @@ void	kill_all(t_data *data)
 	}
 }
 
+void	simulation(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nbr_philo)
+	{
+		data->philos[i].pid = fork();
+		if (data->philos[i].pid < 0)
+		{
+			perror("fork() Error");
+			exit(EXIT_FAILURE);
+		}
+		else if (data->philos[i].pid == 0)
+		{
+			proc_routine(&data->philos[i]);
+			exit(EXIT_SUCCESS);
+		}
+		i++;
+	}
+	parent_monitor(data);
+	exit(0);
+}
+
 void	init_philo(t_data *data)
 {
 	int		i;
+	char	*str;
 
 	i = 0;
 	data->t_begin = get_tv();
@@ -126,6 +115,9 @@ void	init_philo(t_data *data)
 		data->philos[i].must_eat = data->must_eat;
 		data->philos[i].nbr_meals = 0;
 		data->philos[i].t_last = get_tv();
+		str = ft_strjoin("/", ft_itoa(i));
+		sem_unlink(str);
+		data->philos[i].meal = sem_open(str, O_CREAT, 0644, 1);
 		data->philos[i].data = data;
 		i++;
 	}
@@ -136,15 +128,3 @@ void	init_data(t_data *data)
 	data->dead = false;
 	data->has_eat = 0;
 }
-
-
-
-
-
-
-
-	// if (sem_wait(data->death) == 0)
-	// 	kill_all(data);
-	// if (sem_wait(data->meals_sem) == 0)
-	// 	kill_all(data);
-	// monitor_philo(data);
