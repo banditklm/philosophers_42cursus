@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:22:06 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/10/24 11:55:47 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/04 13:47:29 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	ft_usleep(size_t time, t_data *data)
 	current = get_tv();
 	(void)data;
 	while ((get_tv() - current) <= time)
-		usleep(20);
+		usleep(200);
 }

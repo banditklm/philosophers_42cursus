@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:06:58 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/11/04 10:19:55 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/05 02:17:53 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,82 +29,24 @@ void	init_sem(t_data *data)
 	sem_unlink("/sem_fork");
 	data->fork = sem_open("/sem_fork", O_CREAT, 0644, data->nbr_philo);
 	if (data->fork == SEM_FAILED)
-	{
-		perror("sem_open failed");
 		exit(EXIT_FAILURE);
-	}
 	sem_unlink("/print");
-	data->print = sem_open("/print", O_CREAT, 0644, 1);//for printing the messages
+	data->print = sem_open("/print", O_CREAT, 0644, 1);
 	if (data->print == SEM_FAILED)
-	{
-		perror("sem_open failed");
 		exit(EXIT_FAILURE);
-	}
 	sem_unlink("/dead_sem");
-	data->dead_sem = sem_open("/dead_sem", O_CREAT, 0644, 1);//for check dead flag is true
+	data->dead_sem = sem_open("/dead_sem", O_CREAT, 0644, 1);
 	if (data->dead_sem == SEM_FAILED)
-	{
-		perror("sem_open failed");
 		exit(EXIT_FAILURE);
-	}
-	sem_unlink("/meals_sem");
-	data->meals_sem = sem_open("/dead_sem", O_CREAT, 0644, 0);
-	if (data->meals_sem == SEM_FAILED)
-	{
-		perror("sem_open failed");
-		exit(EXIT_FAILURE);
-	}
-	sem_unlink("/death");
-	data->death = sem_open("/death", O_CREAT, 0644, 0);
-	if (data->death == SEM_FAILED)
-	{
-		perror("sem_open failed");
-		exit(EXIT_FAILURE);
-	}
-}
-
-void	kill_all(t_data *data)
-{
-	int		i;
-
-	i = 0;
-	while (i < data->nbr_philo)
-	{
-		kill(data->philos[i].pid, SIGKILL);
-		i++;
-	}
-}
-
-void	simulation(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->nbr_philo)
-	{
-		data->philos[i].pid = fork();
-		if (data->philos[i].pid < 0)
-		{
-			perror("fork() Error");
-			exit(EXIT_FAILURE);
-		}
-		else if (data->philos[i].pid == 0)
-		{
-			proc_routine(&data->philos[i]);
-			exit(EXIT_SUCCESS);
-		}
-		i++;
-	}
-	parent_monitor(data);
-	exit(0);
 }
 
 void	init_philo(t_data *data)
 {
 	int		i;
-	char	*str;
 
 	i = 0;
+	if (data->must_eat == 0)
+		return ;
 	data->t_begin = get_tv();
 	while (i < data->nbr_philo)
 	{
@@ -115,14 +57,15 @@ void	init_philo(t_data *data)
 		data->philos[i].must_eat = data->must_eat;
 		data->philos[i].nbr_meals = 0;
 		data->philos[i].t_last = get_tv();
-		str = ft_strjoin("/", ft_itoa(i));
-		sem_unlink(str);
-		data->philos[i].meal = sem_open(str, O_CREAT, 0644, 1);
+		data->philos[i].str = ft_strjoin("/", ft_itoa(i));
+		sem_unlink(data->philos[i].str);
+		data->philos[i].meal = sem_open(data->philos[i].str, O_CREAT, 0644, 1);
 		data->philos[i].data = data;
 		i++;
 	}
 	simulation(data);
 }
+
 void	init_data(t_data *data)
 {
 	data->dead = false;

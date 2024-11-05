@@ -2,7 +2,7 @@ NAME = philo
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 
 SRCS = philo.c parser.c utils.c init.c time.c routine.c monitor.c helper.c
 

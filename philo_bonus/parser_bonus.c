@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:08:20 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/10/17 16:28:59 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/05 01:17:32 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static int	is_num(char **str)
 			return (0);
 		while (str[i][j])
 		{
-			if (!(str[i][j] == ' ' || str[i][j] == '+' || (str[i][j] >= '0' && str[i][j] <= '9')))
+			if (!(str[i][j] == ' ' || str[i][j] == '+'
+				|| (str[i][j] >= '0' && str[i][j] <= '9')))
 				return (0);
 			j++;
 		}
@@ -46,9 +47,11 @@ static int	check_sign(char **str)
 		j = 0;
 		while (str[i][j])
 		{
-			if ((str[i][j] == '+') && (str[i][j + 1] == '+' || str[i][j + 1] == ' ' || str[i][j + 1] == '\0'))
+			if ((str[i][j] == '+') && (str[i][j + 1] == '+'
+				|| str[i][j + 1] == ' ' || str[i][j + 1] == '\0'))
 				return (0);
-			else if ((str[i][j] >= '0' && str[i][j] <= '9') && (str[i][j + 1] == '+'))
+			else if ((str[i][j] >= '0' && str[i][j] <= '9')
+				&& (str[i][j + 1] == '+'))
 				return (0);
 			j++;
 		}
@@ -60,7 +63,7 @@ static int	check_sign(char **str)
 static int	get_args(char **av)
 {
 	int		i;
-	
+
 	i = 1;
 	while (av[i])
 	{

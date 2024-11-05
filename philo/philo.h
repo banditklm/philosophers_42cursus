@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 08:25:48 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/10/24 12:01:48 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/05 00:45:01 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	philo_lock;
 	size_t			t_last;
-	int				nbr_meals;
+	int				n_meal;
 	t_data			*data;
 }	t_philo;
 
@@ -70,16 +70,14 @@ size_t	get_tv(void);
 void	ft_usleep(size_t time, t_data *data);
 void	init_args(t_data *data, int ac, char **av);
 void	init_forks(t_data *data);
-void	*philo_routine0(void *philo);
-void	*philo_routine1(void *philo);
-void	init_philo(t_data *data);
+void	*philo_routine(void *philo);
+int		init_philo(t_data *data);
 void	init_data(t_data *data);
 void	ft_printf(t_philo *philo, t_type type, size_t t);
 bool	check_died(t_philo *philo);
 bool	check_meals(t_philo *philo);
 bool	get_flag(t_data *data);
 bool	get_meals(t_philo *philo);
-void	*monitor_philos0(t_data *data);
-void	*monitor_philos1(t_data *data);
+void	*monitor_philos(t_data *data);
 
 #endif
