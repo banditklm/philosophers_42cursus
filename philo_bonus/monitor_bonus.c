@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 17:39:10 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/11/05 02:14:38 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:13:24 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	*th_monitor(t_philo *philo)
 {
 	while (1)
 	{
-		usleep(100);
 		sem_wait(philo->meal);
 		if ((get_tv() - philo->t_last) >= philo->t_die)
 		{

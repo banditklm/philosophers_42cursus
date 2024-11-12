@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 08:59:07 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/11/05 00:14:53 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:07:47 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,12 @@ void	ft_printf(t_philo *philo, t_type type, size_t t)
 		pthread_mutex_unlock(&philo->data->print);
 }
 
-bool	get_flag(t_data *data)
-{
-	bool	res;
-
-	pthread_mutex_lock(&data->died);
-	res = data->dead;
-	pthread_mutex_unlock(&data->died);
-	return (res);
-}
+// bool	get_flag(t_data *data)
+// {
+// 	bool	res;
+// 	res = data->dead;
+// 	return (res);
+// }
 
 bool	get_meals(t_philo *philo)
 {
@@ -58,9 +55,7 @@ bool	check_died(t_philo *philo)
 	pthread_mutex_lock(&philo->philo_lock);
 	if ((get_tv() - philo->t_last) >= philo->t_die)
 	{
-		pthread_mutex_lock(&philo->data->died);
 		philo->data->dead = true;
-		pthread_mutex_unlock(&philo->data->died);
 		ft_printf(philo, DEAD, get_tv() - philo->data->t_begin);
 		pthread_mutex_unlock(&philo->philo_lock);
 		return (true);

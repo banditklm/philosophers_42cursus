@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:08:13 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/11/05 02:20:03 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:51:53 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <fcntl.h>
 # include <semaphore.h>
 # include <sys/time.h>
-# include <sys/types.h>
-# include <sys/wait.h>
 # include <stdbool.h>
 # include <pthread.h>
 # include <signal.h>

@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 11:33:59 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/11/05 00:42:03 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:10:36 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,17 @@ void	init_forks(t_data *data)
 	}
 }
 
-void	sent_monitor(t_data *data)
+void	detach_thread(t_data *data)
 {
 	int	i;
 
-	monitor_philos(data);
-	return ;
 	i = 0;
 	while (i < data->nbr_philo)
 	{
-		pthread_join(data->philos[i].thread, NULL);
+		pthread_detach(data->philos[i].thread);
 		i++;
 	}
+	return ;
 }
 
 int	init_philo(t_data *data)
@@ -73,7 +72,8 @@ int	init_philo(t_data *data)
 	}
 	if (data->must_eat == 0)
 		return (-1);
-	sent_monitor(data);
+	monitor_philos(data);
+	detach_thread(data);
 	return (-1);
 }
 

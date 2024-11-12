@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:06:58 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/11/05 02:17:53 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:34:21 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	init_sem(t_data *data)
 void	init_philo(t_data *data)
 {
 	int		i;
+	char	*s;
 
 	i = 0;
 	if (data->must_eat == 0)
@@ -57,10 +58,12 @@ void	init_philo(t_data *data)
 		data->philos[i].must_eat = data->must_eat;
 		data->philos[i].nbr_meals = 0;
 		data->philos[i].t_last = get_tv();
-		data->philos[i].str = ft_strjoin("/", ft_itoa(i));
+		s = ft_itoa(i);
+		data->philos[i].str = ft_strjoin("/", s);
 		sem_unlink(data->philos[i].str);
 		data->philos[i].meal = sem_open(data->philos[i].str, O_CREAT, 0644, 1);
 		data->philos[i].data = data;
+		free(s);
 		i++;
 	}
 	simulation(data);

@@ -16,7 +16,7 @@ $(NAME) : $(OBJS)
 	@$(CC) $(FLAGS) $^ -o $@
 	@echo "\033[32mMaking Completed✅😜"
 
-$(OBJS) : %.o: %.c $(HEAD) Makefile
+$(OBJS) : %.o: %.c $(HEADS) Makefile
 	@$(CC) $(FLAGS) -c $< -o $@
 
 clean :

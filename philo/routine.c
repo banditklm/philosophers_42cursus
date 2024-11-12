@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:43:13 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/11/05 00:05:34 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/11 10:20:45 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ void	*philo_routine(void *ph)
 	while (1)
 	{
 		dinner(philo);
-		if (get_flag(data))
+		if (data->dead)
 			break ;
 		if (data->must_eat != -1 && get_meals(philo))
 			break ;
 		nap(philo);
-		if (get_flag(data))
+		if (data->dead)
 			break ;
 		think(philo);
-		if (get_flag(data))
+		if (data->dead)
 			break ;
 	}
 	return (0);

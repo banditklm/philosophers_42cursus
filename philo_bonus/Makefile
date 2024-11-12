@@ -13,10 +13,10 @@ OBJS = $(SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	@$(CC) $^ -o $@
+	@$(CC) $(FLAGS) $^ -o $@
 	@echo "\033[32mMaking Bonus Completed✅😜"
 
-$(OBJS) : %.o: %.c $(HEAD) Makefile
+$(OBJS) : %.o: %.c $(HEADS) Makefile
 	@$(CC) $(FLAGS) -c $< -o $@
 
 clean :

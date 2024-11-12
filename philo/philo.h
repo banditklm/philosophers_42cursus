@@ -6,7 +6,7 @@
 /*   By: kelmounj <kelmounj@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 08:25:48 by kelmounj          #+#    #+#             */
-/*   Updated: 2024/11/05 00:45:01 by kelmounj         ###   ########.fr       */
+/*   Updated: 2024/11/11 10:21:31 by kelmounj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdbool.h>
+# include <stdatomic.h>
 
 typedef enum e_type
 {
@@ -57,7 +58,7 @@ typedef struct s_data
 	size_t			t_eat;
 	size_t			t_sleep;
 	int				must_eat;
-	bool			dead;
+	_Atomic bool	dead;
 	size_t			t_begin;
 	int				has_eat;
 	pthread_mutex_t	print;
@@ -76,7 +77,7 @@ void	init_data(t_data *data);
 void	ft_printf(t_philo *philo, t_type type, size_t t);
 bool	check_died(t_philo *philo);
 bool	check_meals(t_philo *philo);
-bool	get_flag(t_data *data);
+// bool	get_flag(t_data *data);
 bool	get_meals(t_philo *philo);
 void	*monitor_philos(t_data *data);
 
